@@ -48,7 +48,7 @@ public class Rename :EditorWindow {
         #endregion
         GUILayout.Label("贴图路径：", EditorStyles.boldLabel);
         texture_path = EditorGUILayout.TextField(texture_path);
-        if (GUILayout.Button("材质球ao贴图添加"))
+        if (GUILayout.Button("材质球ao贴图添加++"))
         {
             fn_add_ao_texture();
         }
