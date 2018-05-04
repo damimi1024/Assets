@@ -1,7 +1,7 @@
 ﻿
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Unlit/diffuseshader2"
+Shader "Unityshadertest/diffuseshader3"
 {
 	Properties{
 		_Diffuse("Diffuse",Color)=(1,1,1,1)

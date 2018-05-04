@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
-Shader "Unlit/specularshader1"
+Shader "Unityshadertest/specularshader1"
 {
 	Properties
 	{
@@ -13,6 +13,7 @@ Shader "Unlit/specularshader1"
 	{
 		Pass
 		{
+			Tags { "LightMode"="ForwardBase" }
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
