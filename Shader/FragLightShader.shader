@@ -1,4 +1,6 @@
-﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 Shader "Unlit/FragLightShader"
 {
@@ -35,6 +37,7 @@ Shader "Unlit/FragLightShader"
 				float2 uv : TEXCOORD0;
 				float4 vertex : SV_POSITION;
 				float3 worldNormal:TEXCOORD1;
+				float3 worldPos:TEXCOORD2;
 			};
 
 			v2f vert (appdata v)
@@ -42,6 +45,7 @@ Shader "Unlit/FragLightShader"
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.worldNormal=mul(v.normal,(float3x3)unity_WorldToObject);
+				o.worldPos=mul(unity_ObjectToWorld,v.vertex).xyz;
 				//o.worldNormal=UnityObjectToWorldNormal(v.normal);
 				return o;
 			}
@@ -57,8 +61,9 @@ Shader "Unlit/FragLightShader"
 				fixed3 diffuse=_LightColor0.rgb*saturate(dot(Normal,Light));
 				//specular
 				float3 reflectDir=normalize(reflect(-Light,Normal));
-				float3 viewDir=WorldSpaceViewDir(i.vertex);
-				fixed3 specular=_LightColor0.rgb*pow(saturate(dot(viewDir,reflectDir)),4);
+				// float3 viewDir=WorldSpaceViewDir(i.vertex);
+				float3 viewDir=normalize(_WorldSpaceCameraPos.xyz-i.worldPos.xyz);
+				fixed3 specular=_LightColor0.rgb*pow(saturate(dot(reflectDir,viewDir)),4);
 
 
 				return fixed4(diffuse+col+specular+col,1);
