@@ -53,6 +53,7 @@ public class RenderWithShaderTest : PostEffectBase
 
     private void setAdditionalCam()
     {
+        if (!additionalCam) return;
         additionalCam.transform.parent = mainCam.transform;
         additionalCam.transform.localPosition = Vector3.zero;
         additionalCam.transform.localRotation = Quaternion.identity;
@@ -75,16 +76,17 @@ public class RenderWithShaderTest : PostEffectBase
 
     void OnDisable()
     {
-        additionalCam.enabled = false;
+        if(additionalCam!=null)
+            additionalCam.enabled = false;
     }
 
     void OnDestroy()
     {
+        DestroyImmediate(additionalCam.gameObject);
         if (renderTexture)
         {
             RenderTexture.ReleaseTemporary(renderTexture);
         }
-        DestroyImmediate(additionalCam.gameObject);
     }
 
     private void OnPreRender()

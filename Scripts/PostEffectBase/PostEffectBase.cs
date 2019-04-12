@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //非运行时也触发效果
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 
 [RequireComponent(typeof(Camera))]
 //提供一个后处理的基类，主要功能在于直接通过Inspector面板拖入shader，生成shader对应的材质
