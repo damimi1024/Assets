@@ -42,7 +42,10 @@ public class RenderWithShaderTest : PostEffectBase
         mainCam = GetComponent<Camera>();
         if (mainCam == null) return;
         Transform addCamTransform = transform.Find("additionCam");
-        if (addCamTransform != null) DestroyImmediate(addCamTransform.gameObject);
+        if (addCamTransform != null)
+        {
+            DestroyImmediate(addCamTransform.gameObject);
+        }
         GameObject additionlCamObj = new GameObject("additionalCam");
         additionalCam = additionlCamObj.AddComponent<Camera>();
         setAdditionalCam();
