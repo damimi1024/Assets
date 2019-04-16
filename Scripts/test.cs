@@ -7,7 +7,7 @@ public class test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Animation>().Play();
+        GetComponent<Animation>().Play("move");
     }
 
     // Update is called once per frame
