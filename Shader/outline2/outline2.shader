@@ -10,7 +10,7 @@ Shader "Unlit/outline"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Diffuse("DiffuseColor",Color)=(1,1,1,1)
-        _OutLineStrength("strenght",Range(0,10))=1
+        _OutLineStrength("strenght",Range(0,0.05))=0.02
         _OutLineColor("outLineColor",Color)=(1,1,1,1)
     }
     SubShader
