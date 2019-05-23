@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 20.18
+    value: 2.39
   threshold:
     overrideState: 1
-    value: 2
+    value: 1.8
   softKnee:
     overrideState: 0
     value: 0.5
@@ -30,7 +30,7 @@ MonoBehaviour:
     value: 65472
   diffusion:
     overrideState: 1
-    value: 6.86
+    value: 2.61
   anamorphicRatio:
     overrideState: 0
     value: 0
@@ -59,22 +59,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
   m_Name: Grain
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   colored:
-    overrideState: 0
+    overrideState: 1
     value: 1
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.273
   size:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 1.04
   lumContrib:
-    overrideState: 0
-    value: 0.8
+    overrideState: 1
+    value: 0.625
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
