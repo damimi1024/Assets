@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fireFrame
-  m_Shader: {fileID: -6465566751694194690, guid: daebdb9067f533142aa0e54edf70cbac,
+  m_Name: particleBlend
+  m_Shader: {fileID: -6465566751694194690, guid: a84b9288213e38a4ab8fd6660ccad2b4,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -19,8 +19,11 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - Texture2D_87A3A260:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_8BE5FCA2: {r: 1.3041189, g: 0.97638226, b: 0.24580252, a: 0.45882353}
-    - Color_E13C2031: {r: 1.3041189, g: 0.23143072, b: 0.14338477, a: 0.5294118}
+    - Color_CD56F8F2: {r: 5.190369, g: 4.596081, b: 0, a: 1}
