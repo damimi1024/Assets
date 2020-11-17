@@ -23,7 +23,7 @@ Shader "Unlit/rimLight"
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
-        #include "Lighting.cginc"
+            #include "Lighting.cginc"
 
             sampler2D _MainTex;
             float _RimPower;
