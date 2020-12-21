@@ -69,12 +69,6 @@ Shader "Unlit/rimLight"
                 fixed3 lambert=0.5*dot(worldNormal,lightDir)+0.5;
                 //文理采样
                 fixed4 color=tex2D(_MainTex,i.uv);
-
-
-
-
-
-
                 //视线方向归一化
                 fixed3 viewDir=normalize(i.viewDir);
                 //计算视线方向与法线方向的夹角，夹角越大，dot值越接近0，

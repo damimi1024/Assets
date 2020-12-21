@@ -61,12 +61,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _ColorFactorA: 0.955
-    - _ColorFactorB: 0.719
+    - _ColorFactorA: 0.92
+    - _ColorFactorB: 0.75
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DissolveDistance: 8.6
-    - _DissolveDistanceFactor: 2.13
+    - _DissolveDistanceFactor: 1.83
     - _DissolveThreshold: 2
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -85,5 +85,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Diffuse: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveColorA: {r: 0, g: 0.6503694, b: 1, a: 1}
-    - _DissolveColorB: {r: 0.990566, g: 0.88707376, b: 0.023362402, a: 1}
+    - _DissolveColorB: {r: 1, g: 0.9214484, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

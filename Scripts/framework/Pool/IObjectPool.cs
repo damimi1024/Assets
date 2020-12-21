@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 public interface IObjectPool
 {
     object  Spawn();
 
-    public void Recycle(object item);
+    void Recycle(object item);
 }
 
 public interface IObjectPool<T> : IObjectPool
