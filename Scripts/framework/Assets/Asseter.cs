@@ -346,7 +346,7 @@ public static class Asseter
             bindId = cacheAsset.BindReference(strongRef, bindTarget);
         }
 
-        return new LoadResult(bindId, resAsset);
+        //return new LoadResult(bindId, resAsset);
     }
 
 

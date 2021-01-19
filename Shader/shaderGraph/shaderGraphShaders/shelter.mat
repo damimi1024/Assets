@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: shelter
+  m_Shader: {fileID: -6465566751694194690, guid: 3fd572900bd4b8349ae1ba055d1714fd,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_A9E0C84A:
+        m_Texture: {fileID: 2800000, guid: 69e1494bf9c84a24abf1253a95a6652d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 69e1494bf9c84a24abf1253a95a6652d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_66158F45_Out:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _waveTex:
+        m_Texture: {fileID: 2800000, guid: 7fa0f7cb0912f4f47999880a286490ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_246A216A: 22.9
+    - Vector1_2A1700DD: 1
+    - Vector1_6E363138: 7.8
+    - Vector1_9292F3FC: 0.67
+    m_Colors:
+    - Color_F47BC054: {r: 0.990566, g: 0.990566, b: 0.990566, a: 0.4117647}
