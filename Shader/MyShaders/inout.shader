@@ -3,12 +3,17 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Speed("Speed",float)=0
+        _Speed("Speed",Vector)=(0.1,0.1,0.1,0.1)
+        _CutOut("CutOut",float) = 0
+        _MainColor("_MainColor",Color) = (1,1,1,1)
     }
     SubShader
     {
         Cull Off
-        Tags { "RenderType"="Transparent" }
+
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
+        Tags { "Queue"="Transparent" }
         Pass
         {
             CGPROGRAM
@@ -31,8 +36,9 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _Speed;
-
+            float4 _Speed;
+            float _CutOut;
+            float4 _MainColor;
             v2f vert (appdata v)
             {
                 v2f o;
@@ -41,14 +47,13 @@
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+				half4 gradient = tex2D(_MainTex, i.uv);
 
+                //clip(gradient - _CutOut*(-abs(_SinTime.x*0.5)));
 
-                clip(_SinTime.x*_Speed-col.r);
-                return col;
+                return gradient;
             }
             ENDCG
         }
