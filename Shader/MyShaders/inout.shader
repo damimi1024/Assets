@@ -11,7 +11,9 @@
     {
         Cull Off
 
-        Blend SrcAlpha OneMinusSrcAlpha
+        //Blend OneMinusDstColor One
+        //Blend DstColor SrcColor
+        //Blend Zero SrcAlpha
         ZWrite Off
         Tags { "Queue"="Transparent" }
         Pass
@@ -49,11 +51,13 @@
 
             fixed4 frag(v2f i) : SV_Target
             {
-				half4 gradient = tex2D(_MainTex, i.uv);
+				float2 uv=tex2D(_MainTex,i.uv).xy;
+                fixed4 color=tex2D(_MainTex,uv+_Time.y/2) ;
+                clip(color.r-0.5);
+                fixed dis = distance(fixed2(uv.x,uv.y),fixed2(0.5,0.5));
+                clip(0.5-dis);
+                return _MainColor;
 
-                //clip(gradient - _CutOut*(-abs(_SinTime.x*0.5)));
-
-                return gradient;
             }
             ENDCG
         }
