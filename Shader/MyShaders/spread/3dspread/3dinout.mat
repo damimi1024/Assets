@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 3dinout
+  m_Shader: {fileID: 4800000, guid: 501f57583dd3e304cb1816862c9aa6b7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _InOutTex:
+        m_Texture: {fileID: 2800000, guid: 8938f86e0a9d50b4a9658b757c35ace0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: be8f19aec22965b418fd04de4f9f5f25, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CutOut: 0
+    - _Dis: 1.75
+    - _Speed: 0.4
+    m_Colors:
+    - _InOutColor: {r: 0.8603976, g: 0.8603976, b: 0.8603976, a: 1}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 0.65882355}
+    - _Speed: {r: 0, g: 0, b: 0, a: 0}
