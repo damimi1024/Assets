@@ -64,7 +64,7 @@ Shader "Unlit/inout"
             {
                 //采样 进行扩散
                 float4 uv_color=tex2D(_MainTex,i.uv);
-                fixed4 color=tex2D(_MainTex,uv_color.xy+_Time.y/2) ;//
+                fixed4 color=tex2D(_MainTex,uv_color.xy +_Time.y/2) ;//
                 clip(color.r-0.5);
 
                 //剔除边缘
