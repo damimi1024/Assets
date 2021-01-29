@@ -10,7 +10,7 @@ Material:
   m_Name: StencilTest
   m_Shader: {fileID: 4800000, guid: f10dda4c70fab1d4a8e2f42c0c9ac1bd, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 0
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2460
@@ -32,3 +32,4 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color0: {r: 0.2977686, g: 1, b: 0, a: 0.5372549}
+    - _Vector0: {r: -0.05, g: 0.29, b: 0.25, a: 0}
