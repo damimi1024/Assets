@@ -70,6 +70,7 @@
                 float3 oriPos :TEXCOORD4 ; 
             };
 
+
             sampler2D _MainTex;
             sampler2D _FlowTex;
             float4 _MainColor;

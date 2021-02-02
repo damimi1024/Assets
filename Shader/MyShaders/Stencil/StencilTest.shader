@@ -21,6 +21,7 @@ Shader "StencilTest"
 		CGPROGRAM
 		#pragma target 3.0
 		#pragma surface surf Unlit keepalpha addshadow fullforwardshadows vertex:vertexDataFunc 
+
 		struct Input
 		{
 			half filler;
