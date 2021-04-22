@@ -32,7 +32,7 @@ Material:
     - __dirty: 0
     - _clip: 0.01
     - _expand: 100
-    - _offset: 1.73
+    - _offset: 1.86
     m_Colors:
     - _Color0: {r: 1.7254902, g: 0, b: 2.9960785, a: 0}
     - _Speed: {r: 0.29, g: 0, b: 0, a: 0}
