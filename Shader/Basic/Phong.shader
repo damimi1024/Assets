@@ -78,8 +78,8 @@
 				v2f o;
 				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.normal_dir = normalize(mul(float4(v.normal, 0.0), unity_WorldToObject).xyz);
-				o.tangent_dir = normalize(mul(unity_ObjectToWorld, float4(v.tangent.xyz, 0.0)).xyz);
+				o.normal_dir = mul(float4(v.normal, 0.0), unity_WorldToObject).xyz;
+				o.tangent_dir = mul(unity_ObjectToWorld, float4(v.tangent.xyz, 0.0)).xyz;
 				//* v.tangent.w 是为了处理不同平台的副法线翻转问题
 				o.binormal_dir = normalize(cross(o.normal_dir,o.tangent_dir)) * v.tangent.w;
 				o.pos_world = mul(unity_ObjectToWorld, v.vertex).xyz;
@@ -90,7 +90,7 @@
 			
 			half4 frag (v2f i) : SV_Target
 			{		
-				//shadow map 需要写在for循环前
+				//shadow map 需要写在for循环前 其实是因为变量i重名 或者将for循环的i改名 
 				half shadow = SHADOW_ATTENUATION(i);
 
 				half3 view_dir = normalize(_WorldSpaceCameraPos.xyz - i.pos_world);
@@ -105,7 +105,7 @@
 				half3 view_tangentspace = normalize(mul(TBN, view_dir));
 				half2 uv_parallax = i.uv;
 				//处理视差 做出凹凸感 可以在不做顶点偏移的情况下做出立体感
-				for (int i = 0; i < 10; i++)
+				for (int j = 0; j < 10; j++)
 				{
 					half height = tex2D(_ParallaxMap, uv_parallax);
 					uv_parallax = uv_parallax - (0.5 - height) * view_tangentspace.xy * _Parallax * 0.01f;
@@ -113,6 +113,7 @@
 
 				//法线计算
 				half4 base_color = tex2D(_MainTex, uv_parallax);
+				//贴图数据为gamma空间计算的结果 需要先将其转换到线性空间下进行计算 计算完色调映射后再转换到gamma空间==>140行
 				base_color = pow(base_color, 2.2);
 				half4 ao_color = tex2D(_AOMap, uv_parallax);
 				half4 spec_mask = tex2D(_SpecMask, uv_parallax);
@@ -183,16 +184,6 @@
 			float _NormalIntensity;
 			sampler2D _ParallaxMap;
 			float _Parallax;
-			//ACES曲线 做色调映射使用
-			float3 ACESFilm(float3 x)
-			{
-				float a = 2.51f;
-				float b = 0.03f;
-				float c = 2.43f;
-				float d = 0.59f;
-				float e = 0.14f;
-				return saturate((x*(a*x + b)) / (x*(c*x + d) + e));
-			};
 
 			v2f vert(appdata v)
 			{
@@ -210,7 +201,6 @@
 			half4 frag(v2f i) : SV_Target
 			{
 				half atten = LIGHT_ATTENUATION(i);
-
 				half3 view_dir = normalize(_WorldSpaceCameraPos.xyz - i.pos_world);
 				half3 normal_dir = normalize(i.normal_dir);
 				half3 tangent_dir = normalize(i.tangent_dir);
@@ -218,7 +208,7 @@
 				float3x3 TBN = float3x3(tangent_dir, binormal_dir, normal_dir);
 				half3 view_tangentspace = normalize(mul(TBN, view_dir));
 				half2 uv_parallax = i.uv;
-
+				//视差偏移
 				for (int j = 0; j < 10; j++)
 				{
 					half height = tex2D(_ParallaxMap, uv_parallax);
@@ -236,6 +226,7 @@
 
 				half3 light_dir_point = normalize(_WorldSpaceLightPos0.xyz - i.pos_world);
 				half3 light_dir = normalize(_WorldSpaceLightPos0.xyz);
+				//_WorldSpaceLightPos0的w分量可以帮助判断是否是平行光 如果是0代表为平行光
 				light_dir = lerp(light_dir, light_dir_point, _WorldSpaceLightPos0.w);
 				half diff_term = min(atten,max(0.0,dot(normal_dir, light_dir)));
 				half3 diffuse_color = diff_term * _LightColor0.xyz * base_color.xyz;
