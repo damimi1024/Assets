@@ -24,6 +24,7 @@
 
 			
 			#include "UnityCG.cginc"
+			#include "Assets/ShaderLibs/Math.cginc"
 
 			struct appdata
 			{
@@ -55,16 +56,6 @@
 			float _NormalIntensity;
 			sampler2D _AOMap;
 			float _Rotate;
-
-			float3 RotateAround(float degree, float3 target)
-			{
-				float rad = degree * UNITY_PI / 180;
-				float2x2 m_rotate = float2x2(cos(rad), -sin(rad),
-					sin(rad), cos(rad));
-				float2 dir_rotate = mul(m_rotate, target.xz);
-				target = float3(dir_rotate.x, target.y, dir_rotate.y);
-				return target;
-			}
 
 			v2f vert (appdata v)
 			{

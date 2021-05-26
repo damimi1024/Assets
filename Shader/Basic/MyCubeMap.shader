@@ -57,17 +57,17 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                half3 tangentDir = normalize(i.tangent_world);
-                half3 binormalDir = normalize(i.binormal_world);
-                half3 normalDir = normalize(i.normal_world);
+                // half3 tangentDir = normalize(i.tangent_world);
+                // half3 binormalDir = normalize(i.binormal_world);
+                // half3 normalDir = normalize(i.normal_world);
 
-                half3 normalMap = tex2D(_NormalMap,i.uv);
-                float3x3 TBN = float3x3(tangentDir,binormalDir,normalDir);
-                half3 normalData = UnpackNormal(_NormalMap);
-                normalData.xy = normalData.xy * _NormalIntensity;
-                normalDir = normalize(mul(normalData.xyz,TBN)) ;
+                // half3 normalMap = tex2D(_NormalMap,i.uv);
+                // float3x3 TBN = float3x3(tangentDir,binormalDir,normalDir);
+                // half3 normalData = UnpackNormal(_NormalMap);
+                // normalData.xy = normalData.xy * _NormalIntensity;
+                // normalDir = normalize(mul(normalData.xyz,TBN)) ;
 
-                half4 cubeColor = texCUBE(refDir,i.uv);
+                // half4 cubeColor = texCUBE(refDir,i.uv);
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
                 return col;

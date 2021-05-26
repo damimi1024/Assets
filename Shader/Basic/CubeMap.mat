@@ -4,10 +4,11 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: CubeMap
-  m_Shader: {fileID: 4800000, guid: f99f568df90c00544acb7ed90d23b622, type: 3}
+  m_Shader: {fileID: 4800000, guid: 3d236e1b3b60fbf4cb4c958375a9eb0b, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AOMap:
-        m_Texture: {fileID: 2800000, guid: 69ebb4a72b40d9e4a8213a59a8a5f99f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6d2048490f8e1da4d8ff6efc0e1cef8d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CubeMap:
-        m_Texture: {fileID: 8900000, guid: 82c4156a11e59624fbb3691abc7e1673, type: 3}
+        m_Texture: {fileID: 8900000, guid: 669af3b0a1d592646af8f0463c0c8f9a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -31,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 14b87f5f3e7d09744948436e936854c6, type: 3}
+        m_Texture: {fileID: 2800000, guid: a442d21c2e3463743a5405d2edfb8f65, type: 3}
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -39,4 +40,4 @@ Material:
     - _NormalIntensity: 1
     - _Rotate: 0
     m_Colors:
-    - _Tint: {r: 0.91764706, g: 0.5137255, b: 0.14901961, a: 1}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
