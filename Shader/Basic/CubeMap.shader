@@ -50,6 +50,7 @@
 			float4 _CubeMap_HDR;
 			float4 _Tint;
 			float _Expose;
+			
 
 			sampler2D _NormalMap;
 			float4 _NormalMap_ST;
