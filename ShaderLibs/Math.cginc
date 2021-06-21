@@ -71,5 +71,15 @@ float3 RotateAround(float degree, float3 target)
     return target;
 }
 
+//ACES曲线 做色调映射使用
+float3 ACESFilm(float3 x)
+{
+    float a = 2.51f;
+    float b = 0.03f;
+    float c = 2.43f;
+    float d = 0.59f;
+    float e = 0.14f;
+    return saturate((x * (a * x + b)) / (x * (c * x + d) + e));
+};
 #endif 
 
