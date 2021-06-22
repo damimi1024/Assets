@@ -46,19 +46,10 @@ Shader "Unityshadertest/vertCommon"
 
 			fixed4 frag(v2f IN):COLOR{
 				float2 uv=IN.uv;
-				float dis=distance(uv,float2(_UVX,_UVY));
-				float scale=0;
-				//if(dis<_R)
-				//{
-				_F*=saturate(1-dis/_R); 
-				scale=_F*sin(-dis*3.14*_T+_Time.y);
-				uv+=uv*scale;
-
-				//}
-
-				//IN.uv+=_F*sin(IN.uv*3.14*_T+_Time.y);
-				fixed4 color=tex2D(_MainTex,uv)+fixed4(1,1,1,1)*20*saturate(scale) ;
-				return color;
+				float s= sin(_Time.y);
+				float dis=distance(uv,float2(0.5,0.5));
+				float te = smoothstep(0.5,0.1,dis);
+				return fixed4(te,te,te,1);
 			}
 
 			ENDCG
