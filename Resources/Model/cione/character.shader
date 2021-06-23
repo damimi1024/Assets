@@ -7,13 +7,13 @@
         _CubeMap("Cube Map",Cube) = "white"{}
         _CompMask("_CompMask",2D) = "compMask"{}
         _SkinLut("Skin Lut",2D) = "white"{}
-        _SSSOffset("SSS Offset",Range(-1,1)) = 1.0
+        _SSSOffset("SSS Offset",Range(0,1)) = 1.0
         _Shininess("Shininess",Range(0.01,100)) = 1.0
         _SpecIntensity("SpecIntensity",Range(0.01,5)) = 1.0
         _NormalIntensity("Normal Intensity",Range(0.0,5.0)) = 1.0
         _Rotate("Rotate",Range(0,360)) = 0
         _Tint("Tint",Color) = (1,1,1,1)
-        _Expose("Expose",Float) = 1.0
+        _Expose("Expose",Range(0,1)) = 1.0
 
         [HideInInspector]
         custom_SHAr("Custom SHAr", Vector) = (0, 0, 0, 0)
@@ -91,6 +91,7 @@
             //sss
             sampler2D _SkinLut;
             float _SSSOffset;
+
             float3 custom_sh(float3 normal_dir){
                 float4 normalForSH = float4(normal_dir, 1.0);
                 //SHEvalLinearL0L1
@@ -142,7 +143,7 @@
                 half skin = 1-comp_mask.b;
                 //区分金属属性材质和普通材质
                 half3 base_color = albedo_color.rgb * ( 1 - metal);
-                half3 spec_color = lerp(0.04,albedo_color,metal);
+                half3 spec_color = lerp(0.04,albedo_color.rgb,metal);
 
                 //shadow map 需要写在for循环前 其实是因为变量i重名 或者将for循环的i改名 
                  //half atten = SHADOW_ATTENUATION(i);
@@ -161,20 +162,21 @@
                 half3 normal_data = UnpackNormal(normalmap);
                 normal_data.xy = normal_data.xy * _NormalIntensity;
                 normal_dir = normalize(mul(normal_data.xyz, TBN));
-                half atten = LIGHT_ATTENUATION(i);
-
                 //直接光漫反射计算
                 half3 light_dir = normalize(_WorldSpaceLightPos0.xyz);
+                half atten = LIGHT_ATTENUATION(i);
+
                 half diff_term = max(0.0,dot(normal_dir, light_dir));
                 half half_lambert = (diff_term + 1) * 0.5;
-                half3 common_direct_diffuse = diff_term * _LightColor0.xyz * base_color.xyz * atten ;
+                half3 common_direct_diffuse = diff_term * _LightColor0.xyz * base_color.xyz * atten;
                 //sss
-                half2 uv_lut = half2(diff_term * atten+ _SSSOffset, 1);
+                half2 uv_lut = half2(diff_term * atten + _SSSOffset, 1);
                 half3 lut_color = tex2D(_SkinLut, uv_lut);
                 half3 lut_linner = pow(lut_color, 2.2);
                 half3 sss_diffuse = lut_linner * _LightColor0.xyz * base_color.xyz * half_lambert;
+                // sss_diffuse = max(sss_diffuse,common_direct_diffuse);
                 half3 direct_diffuse = lerp(common_direct_diffuse, sss_diffuse, skin);
-                direct_diffuse = min(direct_diffuse, common_direct_diffuse);
+                //direct_diffuse = min(direct_diffuse, common_direct_diffuse);
                 
 
                 //直接光高光反射计算
@@ -182,8 +184,8 @@
                 half NdotH = dot(normal_dir, half_dir);
                 half smoothness = 1-roughness;
                 half shininess = lerp(1,_Shininess,smoothness);
-                half3 direct_spec = pow(max(0.0, NdotH),shininess) * spec_color
-                      * _LightColor0.xyz * _SpecIntensity;
+                half3 direct_spec = pow(max(0.0, NdotH),shininess * smoothness) * spec_color
+                      * _LightColor0.xyz *atten;// _SpecIntensity;
                 //直接光照计算值
                 half3 ambient_color = UNITY_LIGHTMODEL_AMBIENT.rgb * base_color.xyz;
                     

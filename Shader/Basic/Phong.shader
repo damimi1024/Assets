@@ -46,7 +46,9 @@
 				float3 tangent_dir : TEXCOORD3;
 				float3 binormal_dir : TEXCOORD4;
 				//shadow map
-				SHADOW_COORDS(5)
+				// SHADOW_COORDS(5)
+                //shadow map
+                LIGHTING_COORDS(5,6)
 			};
 
 			sampler2D _MainTex;
@@ -84,14 +86,16 @@
 				o.binormal_dir = normalize(cross(o.normal_dir,o.tangent_dir)) * v.tangent.w;
 				o.pos_world = mul(unity_ObjectToWorld, v.vertex).xyz;
 				//shadow map
-				TRANSFER_SHADOW(o)
+				// TRANSFER_SHADOW(o)
+                TRANSFER_VERTEX_TO_FRAGMENT(o)
 				return o;
 			}
 			
 			half4 frag (v2f i) : SV_Target
 			{		
 				//shadow map 需要写在for循环前 其实是因为变量i重名 或者将for循环的i改名 
-				half shadow = SHADOW_ATTENUATION(i);
+				// half shadow = SHADOW_ATTENUATION(i);
+                half shadow = LIGHT_ATTENUATION(i);
 
 				half3 view_dir = normalize(_WorldSpaceCameraPos.xyz - i.pos_world);
 				//发现方向
