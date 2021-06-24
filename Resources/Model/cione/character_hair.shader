@@ -1,4 +1,4 @@
-﻿ Shader "character"
+﻿ Shader "character_Hair"
 {
     Properties
     {
@@ -6,29 +6,25 @@
         _NormalMap("NormalMap",2D) = "bump"{}
         _CubeMap("Cube Map",Cube) = "white"{}
         _CompMask("_CompMask",2D) = "compMask"{}
-        _SkinLut("Skin Lut",2D) = "white"{}
-        _SSSOffset("SSS Offset",Range(0,1)) = 1.0
-        _Shininess("Shininess",Range(0.01,100)) = 1.0
         _SpecIntensity("SpecIntensity",Range(0.01,5)) = 1.0
         _NormalIntensity("Normal Intensity",Range(0.0,5.0)) = 1.0
         _Rotate("Rotate",Range(0,360)) = 0
-        _Tint("Tint",Color) = (1,1,1,1)
         _Expose("Expose",Range(0,1)) = 1.0
+        _BaseColor("BaseColor",Color) = (1,1,1,1)
 
-        [HideInInspector]
-        custom_SHAr("Custom SHAr", Vector) = (0, 0, 0, 0)
-        [HideInInspector]
-        custom_SHAg("Custom SHAg", Vector) = (0, 0, 0, 0)
-        [HideInInspector]
-        custom_SHAb("Custom SHAb", Vector) = (0, 0, 0, 0)
-        [HideInInspector]
-        custom_SHBr("Custom SHBr", Vector) = (0, 0, 0, 0)
-        [HideInInspector]
-        custom_SHBg("Custom SHBg", Vector) = (0, 0, 0, 0)
-        [HideInInspector]
-        custom_SHBb("Custom SHBb", Vector) = (0, 0, 0, 0)
-        [HideInInspector]
-        custom_SHC("Custom SHC", Vector) = (0, 0, 0, 1)
+
+        _AnisoMap ("Aniso Map",2D) = "white" {}    
+        _Shininess1 ("Shininess 1",Range(0,1)) = 1.0
+        _SpecColor1 ("SpecColor 1",Color) = (1,1,1,1)
+        _SpecNoise1 ("SpecNoise 1",float) = 1.0
+        _SpecOffset1("SpecOffset 1",float) = 0
+ 
+
+        _Shininess2 ("Shininess 2",Range(0,1)) = 1.0
+        _SpecColor2 ("SpecColor 2",Color) = (1,1,1,1)
+        _SpecNoise2 ("SpecNoise 2",float) = 1.0
+        _SpecOffset2("SpecOffset 2",float) = 0
+
     }
     SubShader
     {
@@ -69,53 +65,28 @@
 
             sampler2D _MainTex;
             sampler2D _NormalMap;
-            sampler2D _CompMask;
             samplerCUBE _CubeMap;
             float4 _CubeMap_HDR;
             float4 _MainTex_ST;
             float _Rotate;
             float4 _LightColor0;
-            float _Shininess;
             float _SpecIntensity;
             float _NormalIntensity;
-            float4 _Tint;
             float _Expose;
-            //sh
-            half4 custom_SHAr;
-            half4 custom_SHAg;
-            half4 custom_SHAb;
-            half4 custom_SHBr;
-            half4 custom_SHBg;
-            half4 custom_SHBb;
-            half4 custom_SHC;
-            //sss
-            sampler2D _SkinLut;
-            float _SSSOffset;
+            float4 _BaseColor;
 
-            float3 custom_sh(float3 normal_dir){
-                float4 normalForSH = float4(normal_dir, 1.0);
-                //SHEvalLinearL0L1
-                half3 x;
-                x.r = dot(custom_SHAr, normalForSH);
-                x.g = dot(custom_SHAg, normalForSH);
-                x.b = dot(custom_SHAb, normalForSH);
+            sampler2D _AnisoMap;
+            float4 _AnisoMap_ST;
+            float _Shininess1;
+            float4 _SpecColor1;
+            float _SpecNoise1;
+            float _SpecOffset1;
 
-                //SHEvalLinearL2
-                half3 x1, x2;
-                // 4 of the quadratic (L2) polynomials
-                half4 vB = normalForSH.xyzz * normalForSH.yzzx;
-                x1.r = dot(custom_SHBr, vB);
-                x1.g = dot(custom_SHBg, vB);
-                x1.b = dot(custom_SHBb, vB);
+            float _Shininess2;
+            float4 _SpecColor2;
+            float _SpecNoise2;
+            float _SpecOffset2;
 
-                // Final (5th) quadratic (L2) polynomial
-                half vC = normalForSH.x*normalForSH.x - normalForSH.y*normalForSH.y;
-                x2 = custom_SHC.rgb * vC;
-
-                float3 sh = max(float3(0.0, 0.0, 0.0), (x + x1 + x2));
-                sh = pow(sh, 1.0 / 2.2);
-                return sh;
-            }
 
             v2f vert (appdata v)
             {
@@ -136,14 +107,9 @@
             {
                 //texture info
                 fixed4 col = tex2D(_MainTex, i.uv);
-                half3 albedo_color = pow(col, 2.2);
-                half4 comp_mask = tex2D(_CompMask,i.uv);
-                half roughness = comp_mask.r;
-                half metal = comp_mask.g;
-                half skin = 1-comp_mask.b;
-                //区分金属属性材质和普通材质
-                half3 base_color = albedo_color.rgb * ( 1 - metal);
-                half3 spec_color = lerp(0.04,albedo_color.rgb,metal);
+                half3 base_color = pow(col, 2.2)*_BaseColor;
+                half3 spec_color = base_color;
+                half roughness = saturate(0.5);
 
                 //shadow map 需要写在for循环前 其实是因为变量i重名 或者将for循环的i改名 
                  //half atten = SHADOW_ATTENUATION(i);
@@ -169,28 +135,33 @@
                 half diff_term = max(0.0,dot(normal_dir, light_dir));
                 half half_lambert = (diff_term + 1) * 0.5;
                 half3 common_direct_diffuse = diff_term * _LightColor0.xyz * base_color.xyz * atten;
-                //sss
-                half2 uv_lut = half2(diff_term * atten + _SSSOffset, 1);
-                half3 lut_color = tex2D(_SkinLut, uv_lut);
-                half3 lut_linner = pow(lut_color, 2.2);
-                half3 sss_diffuse = lut_linner * _LightColor0.xyz * base_color.xyz * half_lambert;
-                // sss_diffuse = max(sss_diffuse,common_direct_diffuse);
-                half3 direct_diffuse = lerp(common_direct_diffuse, sss_diffuse, skin);
+                half3 direct_diffuse =  base_color;
                 //direct_diffuse = min(direct_diffuse, common_direct_diffuse);
                 
 
                 //直接光高光反射计算
+                half2 uv_aniso = i.uv * _AnisoMap_ST.xy + _AnisoMap_ST.zw;
+                half aniso_noise = tex2D(_AnisoMap,uv_aniso).r - 0.5;
                 half3 half_dir = normalize(light_dir + view_dir);
                 half NdotH = dot(normal_dir, half_dir);
-                half smoothness = 1-roughness;
-                half shininess = lerp(1,_Shininess,smoothness);
-                half3 direct_spec = pow(max(0.0, NdotH),shininess * smoothness) * spec_color
-                      * _LightColor0.xyz *atten;// _SpecIntensity;
-                //直接光照计算值
-                half3 ambient_color = UNITY_LIGHTMODEL_AMBIENT.rgb * base_color.xyz;
-                    
-                //间接光漫反射计算
-                half3 env_diffuse = custom_sh(normal_dir) * half_lambert * base_color;
+                half TdotH = dot(half_dir,tangent_dir);
+                half NdotV = max(0,dot(view_dir,normal_dir));
+                //求出各向异性高光衰减值 否则阴影部分也能看到高光
+                float aniso_atten = saturate(sqrt(max(0,half_lambert/NdotV)))*atten;
+                float3 spec_color1 = _SpecColor1.rgb + base_color;
+                float3 aniso_offset1 = normal_dir * (aniso_noise * _SpecNoise1 + _SpecOffset1);
+                float3 binormal_dir1 = normalize(binormal_dir + aniso_offset1);
+                float BdotH1 = dot(half_dir,binormal_dir1)/_Shininess1;
+                float3 spec_term1 = exp(-(TdotH *TdotH + BdotH1 * BdotH1)/(1 + NdotH));
+                float3 final_spec1 = spec_term1 * aniso_atten * atten * spec_color1 *_LightColor0.xyz;
+
+                // half smoothness = 1-roughness;
+                // half shininess = lerp(1,_Shininess1,smoothness);
+                // half3 direct_spec = pow(max(0.0, NdotH),shininess * smoothness) * spec_color
+                //       * _LightColor0.xyz *atten;// _SpecIntensity;
+                
+
+
                 //间接光镜面反射计算
                 half3 reflect_dir = reflect(-view_dir,normal_dir);
                 reflect_dir = RotateAround(_Rotate,reflect_dir);
@@ -198,11 +169,12 @@
                 float mip_level = roughness * 6.0;
                 half4 color_cubemap = texCUBElod(_CubeMap, float4(reflect_dir,mip_level));
                 half3 env_color = DecodeHDR(color_cubemap, _CubeMap_HDR);//确保在移动端能拿到HDR信息
-                half3 env_spec = env_color * spec_color * _Expose * _Tint.rgb * half_lambert;// ;
+                half3 env_spec = env_color * spec_color * _Expose *  half_lambert;// ;
 
 
                 // half3 final_color = direct_diffuse + direct_spec + env_diffuse * 0.5 + env_spec;
-                half3 final_color = direct_diffuse + direct_spec +env_diffuse * 0.5 + env_spec;
+                //half3 final_color = direct_diffuse + final_spec1 + env_spec;
+                half3 final_color = direct_diffuse + final_spec1 + env_spec ;
                 half3 tone_color = ACESFilm(final_color);
                 tone_color = pow(tone_color, 1.0 / 2.2);
 
