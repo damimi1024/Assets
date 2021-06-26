@@ -49,16 +49,16 @@ Material:
     - _Rotate: 0
     - _SSSOffset: 1
     - _Shininess: 1
-    - _Shininess1: 0.23
+    - _Shininess1: 0.06
     - _Shininess2: 0.23
     - _SpecIntensity: 1
-    - _SpecNoise1: 0.78
+    - _SpecNoise1: 1.54
     - _SpecNoise2: 1
-    - _SpecOffset1: -0.07
+    - _SpecOffset1: -0.22
     - _SpecOffset2: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 0.4669811, b: 0.4669811, a: 1}
-    - _SpecColor1: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
+    - _SpecColor1: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor2: {r: 1, g: 1, b: 1, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
     - custom_SHAb: {r: 0, g: 0, b: 0, a: 0}
