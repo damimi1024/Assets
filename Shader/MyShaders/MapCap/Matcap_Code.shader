@@ -81,7 +81,7 @@ Shader "Unlit/Matcap_Code"
 				//add matcap
 				half4 matcap_add_color = tex2D(_MatcapAdd, uv_matcap) * _MatcapAddIntensity;
 
-				half4 combined_color = diffuse_color * matcap_color * ramp_color + matcap_add_color;
+				half4 combined_color = diffuse_color * matcap_color* ramp_color + matcap_add_color;
 				return combined_color;
 			}
 			ENDCG
