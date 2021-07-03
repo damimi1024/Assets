@@ -1,0 +1,48 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 11.07.2017 11:21:54
+
+newmtl blinn2SG
+	Ns 30.000002
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.478431 0.478431 0.478431
+	Kd 0.478431 0.478431 0.478431
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka H:\mymodel\20170710\book-of-duban\Metal_diffue.jpg
+	map_Kd H:\mymodel\20170710\book-of-duban\Metal_diffue.jpg
+	map_Ks H:\mymodel\20170710\book-of-duban\Metal_specular.jpg
+	map_bump -bm 0.300000 Map__7_Normal_Bump.tga
+
+newmtl lambert6SG
+	Ns 30.000002
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.486275 0.486275 0.486275
+	Kd 0.486275 0.486275 0.486275
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka H:\mymodel\20170710\book-of-duban\book_F_col.jpg
+	map_Kd H:\mymodel\20170710\book-of-duban\book_F_col.jpg
+	map_bump -bm 0.300000 Map__10_Normal_Bump.tga
+
+newmtl lambert4SG
+	Ns 30.000002
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.560784 0.560784 0.560784
+	Kd 0.560784 0.560784 0.560784
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka H:\mymodel\20170710\book-of-duban\book_col.jpg
+	map_Kd H:\mymodel\20170710\book-of-duban\book_col.jpg
+	map_bump -bm 0.300000 Map__13_Normal_Bump.tga

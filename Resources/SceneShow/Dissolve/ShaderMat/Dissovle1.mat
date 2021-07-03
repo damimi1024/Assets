@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Dissovle1
   m_Shader: {fileID: 4800000, guid: a6698d7ea009b984e945ae9b9078e33f, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _MANNULCONTROL_ON
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -18,7 +18,32 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _Gradient:
+        m_Texture: {fileID: 2800000, guid: cea807cca851fb44da696ea20abb3fed, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 84b9b3ff1190e104385e13edc319c5ab, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: cea807cca851fb44da696ea20abb3fed, type: 3}
+        m_Scale: {x: 22, y: 22}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _ChangeAmount: 0
+    - _Cutoff: 0.5
+    - _EdgeHeight: 0.269
+    - _EdgeWidth: 0.1
+    - _Float0: 0
+    - _MANNULCONTROL: 1
+    - _Spread: 0.67
     - __dirty: 0
-    m_Colors: []
+    m_Colors:
+    - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _ResovleColor: {r: 10.432951, g: 2.94963, b: 1.5294378, a: 1}
