@@ -135,11 +135,11 @@
 				half3 half_dir = normalize(light_dir + view_dir);
 				half NdotH = dot(normal_dir, half_dir);
 				half3 spec_color = pow(max(0.0, NdotH),_Shininess) 
-					 * diff_term * _LightColor0.xyz * _SpecIntensity * spec_mask.rgb;
+					 * diff_term * _LightColor0.xyz * _SpecIntensity * spec_mask.r;
 
 				//环境光
 				half3 ambient_color = UNITY_LIGHTMODEL_AMBIENT.rgb * base_color.xyz;
-				half3 final_color = (diffuse_color + spec_color + ambient_color) * ao_color;
+				half3 final_color = (diffuse_color + spec_color + ambient_color) * ao_color.rgb;
 				half3 tone_color = ACESFilm(final_color);
 				tone_color = pow(tone_color, 1.0 / 2.2);
 				return half4(tone_color,1.0);
@@ -238,9 +238,9 @@
 				half3 half_dir = normalize(light_dir + view_dir);
 				half NdotH = dot(normal_dir, half_dir);
 				half3 spec_color = pow(max(0.0, NdotH),_Shininess)
-					 * diff_term * _LightColor0.xyz * _SpecIntensity * spec_mask.rgb;
+					 * diff_term * _LightColor0.xyz * _SpecIntensity* spec_mask.r;// 
 
-				half3 final_color = (diffuse_color + spec_color) * ao_color;
+				half3 final_color = (diffuse_color + spec_color) * ao_color.rgb;
 				return half4(final_color,1.0);
 			}
 			ENDCG

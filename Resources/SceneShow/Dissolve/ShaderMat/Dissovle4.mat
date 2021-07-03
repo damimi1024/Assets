@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShelterDissolution
+  m_Name: Dissovle4
   m_Shader: {fileID: 4800000, guid: f554817a2f297184c8d2076e24eb7d11, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -36,16 +36,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveMap:
-        m_Texture: {fileID: 2800000, guid: e0cb96aec243ce24fb38996330469e04, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 2a50795305939024d81f6dc2d0617197, type: 3}
+        m_Scale: {x: 22, y: 22}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3c6a43df61a0d534d9faaf8269dca2ae, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: f2936df876c8b4f449f921f3875882f1, type: 3}
+        m_Scale: {x: 3.29, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -61,13 +61,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _ColorFactorA: 0.92
-    - _ColorFactorB: 0.75
+    - _ColorFactorA: 0.242
+    - _ColorFactorB: 0.109
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveDistance: 8.6
-    - _DissolveDistanceFactor: 1.83
-    - _DissolveThreshold: 2
+    - _DissolveDistance: 1.8
+    - _DissolveDistanceFactor: 8.9
+    - _DissolveThreshold: 1.3
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -84,6 +84,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Diffuse: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveColorA: {r: 0, g: 0.6503694, b: 1, a: 1}
-    - _DissolveColorB: {r: 1, g: 0.9214484, b: 0, a: 1}
+    - _DissolveColorA: {r: 4.536478, g: 3.4914255, b: 0, a: 1}
+    - _DissolveColorB: {r: 2.91489, g: 3.891255, b: 1.2418897, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

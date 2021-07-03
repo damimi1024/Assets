@@ -1,19 +1,19 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Unlit/ShelterDissolution"
+Shader "Unlit/Dissovle4"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _DissolveColorA("DissolveColorA",Color)=(1,1,1,1)
-        _DissolveColorB("DissolveColorB",Color)=(1,1,1,1)
+        [HDR]_DissolveColorA("DissolveColorA",Color)=(1,1,1,1)
+         [HDR]_DissolveColorB("DissolveColorB",Color)=(1,1,1,1)
         _Diffuse("Diffuse",Color)=(1,1,1,1)
         _DissolveMap("DissolveMap",2D)="white"{}
         _DissolveThreshold("DissolveThreshold",Range(0,2))=2
         _ColorFactorA("ColorFactorA",Range(0,1))=0.7
         _ColorFactorB("ColorFactorB",Range(0,1))=0.8
         _DissolveDistance("DissolveDis",Range(0,20))=14
-        _DissolveDistanceFactor("DissolveDisFactor",Range(0,3))=1
+        _DissolveDistanceFactor("DissolveDisFactor",Range(0,30))=1
     }
     CGINCLUDE
     #include "Lighting.cginc"
@@ -74,12 +74,14 @@ Shader "Unlit/ShelterDissolution"
         fixed3 color = tex2D(_MainTex, i.uv).rgb * albedo;
         //这里为了比较方便，直接用color和最终的边缘lerp了
         float lerpValue = disolveFactor / dissolveValue.r;
-        if (lerpValue > _ColorFactorA)
+        if (lerpValue > 1- _ColorFactorA)
         {
-            if (lerpValue > _ColorFactorB)
-                return _DissolveColorB;
-            return _DissolveColorA;
+             if (lerpValue > 1- _ColorFactorB)
+                 return _DissolveColorB;
+             return _DissolveColorA;
+
         }
+        // color = lerp(_DissolveColorA,_DissolveColorB,lerpValue);
         return fixed4(color, 1);
     }
 

@@ -7,51 +7,50 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dissovle1
-  m_Shader: {fileID: 4800000, guid: a6698d7ea009b984e945ae9b9078e33f, type: 3}
-  m_ShaderKeywords: _MANNULCONTROL_ON
+  m_Name: Dissovle3_metal
+  m_Shader: {fileID: 4800000, guid: b113b4b0a2eb72a43a2441bb33e320f9, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 300
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Gradient:
-        m_Texture: {fileID: 2800000, guid: 4226500b09883374a89cabfaf68e760a, type: 3}
+        m_Texture: {fileID: 2800000, guid: ee27ce608ae336a49af208ba200cc434, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 84b9b3ff1190e104385e13edc319c5ab, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4d733489cbdd48045868cc60bdab4ec2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
-        m_Texture: {fileID: 2800000, guid: cb6fc684c58081647aed6fc6ac5fbedd, type: 3}
-        m_Scale: {x: 3, y: 3}
+        m_Texture: {fileID: 2800000, guid: cea807cca851fb44da696ea20abb3fed, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TextureSample0:
-        m_Texture: {fileID: 2800000, guid: cea807cca851fb44da696ea20abb3fed, type: 3}
-        m_Scale: {x: 22, y: 22}
+        m_Texture: {fileID: 2800000, guid: e38015c7f8b4cfc46973fcb303285607, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _BOTTOMCENTER: 0
     - _ChangeAmount: 0
     - _Cutoff: 0.5
     - _EdgeHeight: 0.269
-    - _EdgeWidth: 0.69
-    - _EdgeWidth1: 3.13
+    - _EdgeWidth: 0.55
     - _Float0: 0
-    - _MANNULCONTROL: 1
-    - _OutSideEdgeWidth: 1.97
-    - _Softness: 0.348
-    - _Spread: 0.247
+    - _Float1: 0
+    - _Height: 0.37
+    - _Softness: 0.384
+    - _Spread: 0.191
     - __dirty: 0
     m_Colors:
-    - _DissolveOutsideColor: {r: 1.7676425, g: 0.6798939, b: 0.12506902, a: 0}
     - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _ResovleColor: {r: 63.25359, g: 17.883213, b: 9.272778, a: 1}
+    - _ResovleColor: {r: 27.53272, g: 7.7841196, b: 4.03621, a: 1}
