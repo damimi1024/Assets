@@ -54,4 +54,4 @@ Material:
     m_Colors:
     - _DissolveOutsideColor: {r: 1.7676425, g: 0.6798939, b: 0.12506902, a: 0}
     - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _ResovleColor: {r: 63.25359, g: 17.883213, b: 9.272778, a: 1}
+    - _ResovleColor: {r: 10.432951, g: 2.94963, b: 1.5294378, a: 1}

@@ -60,7 +60,7 @@ Shader "Unlit/Dissovle4"
         //用两个控制系数作为最终溶解的系数
         float disolveFactor = viewDistance * screenSpaceDistance * _DissolveThreshold;
         //采样Dissolve Map
-        fixed4 dissolveValue = tex2D(_DissolveMap, i.uv);
+        fixed4 dissolveValue = 1-tex2D(_DissolveMap, i.uv);
         //小于阈值的部分直接discard
         if (dissolveValue.r < disolveFactor)
         {

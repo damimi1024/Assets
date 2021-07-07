@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BurnFlag
+  m_Shader: {fileID: 4800000, guid: 36de2e54cbc4f03449dc551419b1359f, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Gradient1:
+        m_Texture: {fileID: 2800000, guid: 4226500b09883374a89cabfaf68e760a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex1:
+        m_Texture: {fileID: 2800000, guid: de5969b59a7d5db48b198da3aa63c061, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise1:
+        m_Texture: {fileID: 2800000, guid: cea807cca851fb44da696ea20abb3fed, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VAT_NORMAL:
+        m_Texture: {fileID: 2800000, guid: 908c9706f47c33a4aa4a2f048c2d4f90, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VAT_NORMAL1:
+        m_Texture: {fileID: 2800000, guid: 908c9706f47c33a4aa4a2f048c2d4f90, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VAT_POS:
+        m_Texture: {fileID: 2800000, guid: 0680b1a9af24f4442b4e252b528cf1db, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VAT_POS1:
+        m_Texture: {fileID: 2800000, guid: 0680b1a9af24f4442b4e252b528cf1db, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _tex_flag1:
+        m_Texture: {fileID: 2800000, guid: de5969b59a7d5db48b198da3aa63c061, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BOTTOMCENTER1: 0
+    - _BoudingMax: 0.05
+    - _BoudingMax1: 2.16
+    - _BoudingMin: 0.19
+    - _BoudingMin1: -5.28
+    - _ChangeAmount1: 0.4338944
+    - _EdgeWidth1: 0.6
+    - _FrameCount: 100
+    - _FrameCount1: 100
+    - _Height1: 3.5
+    - _OutSideEdgeWidth1: 0.26
+    - _Softness1: 0.3582897
+    - _Speed: 200
+    - _Speed1: 0.3
+    - _Spread1: 0.261
+    - __dirty: 0
+    m_Colors:
+    - _DissolveOutsideColor1: {r: 2.6390157, g: 0, b: 0, a: 0}
+    - _NoiseSpeed1: {r: 0, g: 0, b: 0, a: 0}
+    - _ResovleColor1: {r: 9.189588, g: 0, b: 0, a: 0}
