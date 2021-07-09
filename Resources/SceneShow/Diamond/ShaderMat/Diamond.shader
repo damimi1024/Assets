@@ -100,14 +100,11 @@
                     //直接光镜面反射
                     half NdotH = dot(normal_dir, half_dir);
                     float3 direct_spec = pow(max(0.0, NdotH),_SpecIntensity) * _LightColor0.xyz;
+                    //环境镜面反射 晶体渲染
+                    float4 refractColor = tex2D(_RefractTex, reflect_dir.xy)*_RefractIntensity;
+                    float3 spec = texCUBE(_CubeMap, reflect_dir);
+                    float3 env_spec = spec * col *_LightColor0.xyz *refractColor;
 
-
-                    //直接光高光反射
-                    // float3 blingphong = max(NdotL * 0)
-                //晶体渲染
-                float4 refractColor = tex2D(_RefractTex, reflect_dir.xy)*_RefractIntensity;
-                float3 spec = texCUBE(_CubeMap, reflect_dir);
-                float3 env_spec = spec * col *_LightColor0.xyz *refractColor;
                 float3 final_color =dir_diffuse + direct_spec + env_spec;
                 return fixed4(final_color,1);
             }
