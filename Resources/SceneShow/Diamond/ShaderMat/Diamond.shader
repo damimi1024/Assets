@@ -6,7 +6,9 @@
         _CubeMap("CubeMap",Cube) = "white"{}
         _NormalMap("NormalMap",2D) = "bump"{}
         _RefractTex ("RefractTex", 2D) = "white" {}
+        _RimMask ("RimMask", 2D) = "white" {}
         _BaseColor ("BaseColor", Color) =  (1,1,1,1)
+        _SpecIntensity("_SpecIntensity",Float) =1
 
         _RefractIntensity ("RefractIntensity", Float) = 1
         _NormalIntensity ("NormalIntensity", Float) = 1
@@ -22,6 +24,7 @@
             #pragma fragment frag
 
             #include "UnityCG.cginc"
+            #include "AutoLight.cginc"
 
             struct appdata
             {
@@ -42,15 +45,18 @@
                 float3 binormal_world :TEXCOORD4;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
             samplerCUBE  _CubeMap;
+            sampler2D _MainTex;
             sampler2D _NormalTex;
             sampler2D  _RefractTex;
+            sampler2D _RimMask;
+            float4 _MainTex_ST;
             float4 _RefractTex_ST;
             float _RefractIntensity;
             float _NormalIntensity;
             float4 _BaseColor;
+            float4 _LightColor0;
+            float _SpecIntensity;
 
 
 
@@ -68,22 +74,41 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                //空间准备
-                float3x3 TBN = float3x3(normalize(i.tangent_world),normalize(i.binormal_world),normalize(i.normal_world));
-                float3 normal_data = UnpackNormal(tex2D(_NormalTex,i.uv));
-                normal_data.xy = normal_data.xy * _NormalIntensity;
-                float3 normal_dir = normalize(mul(normal_data.xyz,TBN));
-                //向量准备
-                float3 normal_world = normalize(i.normal_world);
-                float3 view_dir = normalize(_WorldSpaceCameraPos.xyz - i.pos_world);
-                float3 reflect_dir = reflect(-view_dir,normal_dir);
-
-
-
+                //采样
                 float4 col = tex2D(_MainTex, i.uv);
+                float4 normalMapuv = tex2D(_NormalTex,i.uv);
+                float4 rim = tex2D(_RimMask,i.uv);
+                //法线贴图准备
+                float3 normal_world = normalize(i.normal_world);
+                float3x3 TBN = float3x3(normalize(i.tangent_world),normalize(i.binormal_world),normalize(i.normal_world));
+                float3 normal_data = UnpackNormal(normalMapuv);
+                normal_data.xy = normal_data.xy * _NormalIntensity;
+                //向量准备
+                float3 normal_dir = normalize(mul(normal_data.xyz,TBN));
+                float3 view_dir = normalize(_WorldSpaceCameraPos.xyz - i.pos_world);
+                float3 reflect_dir = normalize(reflect(-view_dir,normal_dir));
+                float3 light_dir = normalize(_WorldSpaceLightPos0.xyz);
+                float3 half_dir = normalize(light_dir + view_dir);
+                //变量准备
+                float NdotL = max(0,dot(normal_dir,light_dir));
+                half halfLambert = NdotL * 0.5 + 0.5;
+                float fresenel = max(0, 1 - dot(i.normal_world,view_dir));
+                //光照模型
+                    //直接光漫反射
+                    float3 direct_diffuse = col.xyz;
+                    float3 dir_diffuse = NdotL * col.rgb * _LightColor0.xyz;
+                    //直接光镜面反射
+                    half NdotH = dot(normal_dir, half_dir);
+                    float3 direct_spec = pow(max(0.0, NdotH),_SpecIntensity) * _LightColor0.xyz;
+
+
+                    //直接光高光反射
+                    // float3 blingphong = max(NdotL * 0)
+                //晶体渲染
                 float4 refractColor = tex2D(_RefractTex, reflect_dir.xy)*_RefractIntensity;
                 float3 spec = texCUBE(_CubeMap, reflect_dir);
-                float3 final_color = col.rgb * spec *refractColor* _BaseColor;
+                float3 env_spec = spec * col *_LightColor0.xyz *refractColor;
+                float3 final_color =dir_diffuse + direct_spec + env_spec;
                 return fixed4(final_color,1);
             }
             ENDCG
