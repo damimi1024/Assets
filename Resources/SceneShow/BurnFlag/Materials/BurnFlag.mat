@@ -82,34 +82,34 @@ Material:
     - _BoudingMax1: 2.16
     - _BoudingMin: -2.653735
     - _BoudingMin1: -5.28
-    - _ChangeAmount: 0.596
+    - _ChangeAmount: 0.27623793
     - _ChangeAmount1: 0.4338944
     - _Cutoff: 0.5
-    - _EdgeWidth: 0.77
+    - _EdgeWidth: 0.31
     - _EdgeWidth1: 0.6
     - _FlowSpeed: 0.8
     - _FrameCount: 100
     - _FrameCount1: 100
     - _Height: 11
     - _Height1: 3.5
-    - _Metallic: 0.43
-    - _OutSideEdgeWidth: 3.78
+    - _Metallic: 0.665
+    - _OutSideEdgeWidth: 1.36
     - _OutSideEdgeWidth1: 0.26
     - _Size: 1
-    - _Softness: 0.357
+    - _Softness: 0.407
     - _Softness1: 0.3582897
     - _Speed: 0.26
     - _Speed1: 0.3
-    - _Spread: 0.287
+    - _Spread: 0.451
     - _Spread1: 0.261
-    - _WindIntensity: 0.6
+    - _WindIntensity: 1.07
     - __dirty: 0
     m_Colors:
     - _DissolveOutsideColor: {r: 0, g: 0, b: 0, a: 0}
     - _DissolveOutsideColor1: {r: 2.6390157, g: 0, b: 0, a: 0}
     - _FlowStrength: {r: 4.71, g: 4, b: 0, a: 0}
-    - _NoiseSpeed: {r: 0, g: -0.7, b: 0, a: 0}
+    - _NoiseSpeed: {r: 0, g: -0.2, b: 0, a: 0}
     - _NoiseSpeed1: {r: 0, g: 0, b: 0, a: 0}
-    - _ResovleColor: {r: 29.508846, g: 11.74174, b: 7.7248287, a: 0}
+    - _ResovleColor: {r: 31.626795, g: 5.133145, b: 0, a: 0}
     - _ResovleColor1: {r: 9.189588, g: 0, b: 0, a: 0}
     - _Vector0: {r: 0, g: -1, b: 0, a: 0}
