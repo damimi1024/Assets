@@ -82,7 +82,7 @@ Material:
     - _BoudingMax1: 2.16
     - _BoudingMin: -2.653735
     - _BoudingMin1: -5.28
-    - _ChangeAmount: 0.27623793
+    - _ChangeAmount: 0.553
     - _ChangeAmount1: 0.4338944
     - _Cutoff: 0.5
     - _EdgeWidth: 0.31
@@ -110,6 +110,6 @@ Material:
     - _FlowStrength: {r: 4.71, g: 4, b: 0, a: 0}
     - _NoiseSpeed: {r: 0, g: -0.2, b: 0, a: 0}
     - _NoiseSpeed1: {r: 0, g: 0, b: 0, a: 0}
-    - _ResovleColor: {r: 31.626795, g: 5.133145, b: 0, a: 0}
+    - _ResovleColor: {r: 41.73181, g: 6.9917173, b: 0, a: 0}
     - _ResovleColor1: {r: 9.189588, g: 0, b: 0, a: 0}
     - _Vector0: {r: 0, g: -1, b: 0, a: 0}
