@@ -11,8 +11,8 @@ public class GPUInstanceTest : MonoBehaviour
     public float Range = 10;
     private Vector3 targetPoint = new Vector3();
     private Vector3 movePoint = new Vector3();
+    bool option;
 
-    private Vector3 SphereCenter = new Vector3();
 
     void BuildMatrixAndBlock()
     {
@@ -33,7 +33,6 @@ public class GPUInstanceTest : MonoBehaviour
         }
         block.SetVectorArray("_MainColor", colors);
     }
-    bool option;
     private void OnGUI()
     {
         var support = SystemInfo.supportsInstancing;
@@ -76,30 +75,27 @@ public class GPUInstanceTest : MonoBehaviour
                 Debug.Log("射线检测到的点是" + hit.point);
             }
             targetPoint = hit.point;
+            SortByDistance(targetPoint);
         }
         if (targetPoint != Vector3.zero){
 
             for (int i = 0; i < matrices.Length; i++)
             {
-
-                var position = new Vector3(matrices[i][0, 3], matrices[i][1, 3], matrices[i][2, 3]);
-                movePoint = Vector3.Lerp(position, targetPoint, 0.1f);
-                Vector3 range = CalualteSphere(i, 1023, 2, movePoint);// Random.insideUnitSphere
-                matrices[i].SetTRS(range, Quaternion.identity, Vector3.one);
+                if (i >= changeIndex) {
+                    var position = new Vector3(matrices[i][0, 3], matrices[i][1, 3], matrices[i][2, 3]);
+                    movePoint = Vector3.Lerp(position, targetPoint, 0.1f);
+                    Vector3 range = CalualteSphere(i, 1023, 2, movePoint);// Random.insideUnitSphere
+                    matrices[i].SetTRS(range, Quaternion.identity, Vector3.one);
+                }
             }
+            changeIndex++;
         }
-        //for (int i = 0; i < matrices.Length; i++)
-        //{
-        //    var position = new Vector3(matrices[i][0, 3], matrices[i][1, 3], matrices[i][2, 3]);
-        //    movePoint = Vector3.Lerp(targetPoint, position, 0.1f);
-        //    matrices[i].SetTRS(position + movePoint, Quaternion.identity, Vector3.one);
-        //}
         if (!option)
         {
             Graphics.DrawMeshInstanced(instanceMesh, 0, instanceMat, matrices, 1023, block, UnityEngine.Rendering.ShadowCastingMode.Off, false);
         }
     }
-
+    private int changeIndex = 0;
 
     Vector3 CalualteSphere(int index, int count, int radius,Vector3 offset)
     {
@@ -110,5 +106,27 @@ public class GPUInstanceTest : MonoBehaviour
         float phi = index * inc;
         Vector3 pos = new Vector3(Mathf.Cos(phi) * r * radius + offset.x, y * radius+offset.y, Mathf.Sin(phi) * r * radius + offset.z);
         return pos;
+    }
+
+    void SortByDistance(Vector3 targetPoint)
+    {
+        //Matrix4x4 temp = new Matrix4x4();
+        for (int i = 0; i < matrices.Length -1 ; i++)
+        {
+            for (int j = i+1; j < matrices.Length; j++)
+            {
+                var positioni = new Vector3(matrices[i][0, 3], matrices[i][1, 3], matrices[i][2, 3]);
+                var positionj = new Vector3(matrices[j][0, 3], matrices[j][1, 3], matrices[j][2, 3]);
+                if (Vector3.Distance(positioni, targetPoint) > Vector3.Distance(positionj, targetPoint))
+                {
+                    Matrix4x4 temp = new Matrix4x4();
+                    //交换
+                    temp = matrices[i];
+                    matrices[i] = matrices[j];
+                    matrices[j] = temp;
+                }
+            }
+        
+        }
     }
 }
