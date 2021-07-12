@@ -430,7 +430,7 @@ PrefabInstance:
     - target: {fileID: 3637647261330774129, guid: eec8cda35887dac48a65ba56b9eb29dc,
         type: 3}
       propertyPath: m_ReceiveShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eec8cda35887dac48a65ba56b9eb29dc, type: 3}
