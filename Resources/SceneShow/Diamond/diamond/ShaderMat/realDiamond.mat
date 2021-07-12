@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: realDiamond
+  m_Shader: {fileID: 4800000, guid: 79f9b1fccea90ed4d8608fff933992e7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _ReflectTex:
+        m_Texture: {fileID: 8900000, guid: 2dbc8567c5db25547b8fcc6e7ed41511, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RefractTex:
+        m_Texture: {fileID: 8900000, guid: b9aba6a9f85d1cf478ead1fa473f354b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ReflectStrength: 1.48
+    - _RefractIntensity: 0.41
+    - _RimBias: 0.22
+    - _RimPower: 6.42
+    - _RimScale: 0.53
+    m_Colors:
+    - _Color0: {r: 2.84697, g: 4.822486, b: 6.8831816, a: 0}
+    - _RimColor: {r: 2.719234, g: 2.719234, b: 2.719234, a: 0}
