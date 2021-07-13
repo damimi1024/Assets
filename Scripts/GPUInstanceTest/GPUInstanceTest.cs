@@ -1,6 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+public class MeshData { 
+    public Mesh shapeTarget { get; set; }
+    public Vector3[] vertices { get; set; }
+}
 
 public class GPUInstanceTest : MonoBehaviour
 {
@@ -12,24 +18,27 @@ public class GPUInstanceTest : MonoBehaviour
     private Vector3 targetPoint = new Vector3();
     private Vector3 movePoint = new Vector3();
     bool option;
+    public int objCount = 1000;
 
+    public List<Mesh>  ShapeMeshs;
+    private Vector3[] curVertics;
 
     void BuildMatrixAndBlock()
     {
         block = new MaterialPropertyBlock();
-        matrices = new Matrix4x4[1023];
-        Vector4[] colors = new Vector4[1023];
-        for (var i = 0; i < 32; i++)
-        {
-            for (var j = 0; j < 32; j++)
-            {
-                var ind = j * 32 + i;
-                if (ind >= 1023) break;
-                Vector3 range = CalualteSphere(ind,1023,2,Vector3.zero);// Random.insideUnitSphere
-                matrices[ind] = Matrix4x4.TRS(range * Range, Quaternion.identity, Vector3.one);
-                colors[ind] = new Vector4(1 - i / 32.0f, 1 - j / 32.0f, 1, 1);
+        matrices = new Matrix4x4[objCount];
+        Vector4[] colors = new Vector4[objCount];
 
-            }
+       
+        curVertics = ShapeMeshs[1].vertices;
+        for (int i = 0; i < objCount; i++)
+        {
+            var ind = i;
+            if (ind >= objCount) break;
+            Vector3 range = CalualteSphere(ind, objCount, 2, Vector3.zero);// Random.insideUnitSphere
+            matrices[ind] = Matrix4x4.TRS(range * Range, Quaternion.identity, Vector3.one);
+            var temp = UnityEngine.Random.Range(0,255);
+            colors[ind] = new Vector4(temp / 255.0f, temp / 255.0f, 1, 1);
         }
         block.SetVectorArray("_MainColor", colors);
     }
@@ -45,7 +54,7 @@ public class GPUInstanceTest : MonoBehaviour
             if (option == true)
             {
                 UnityEngine.Rendering.CommandBuffer buffer = new UnityEngine.Rendering.CommandBuffer();
-                buffer.DrawMeshInstanced(instanceMesh, 0, instanceMat, 0, matrices, 1023, block);
+                buffer.DrawMeshInstanced(instanceMesh, 0, instanceMat, 0, matrices, objCount, block);
                 Camera.main.AddCommandBuffer(UnityEngine.Rendering.CameraEvent.AfterForwardOpaque, buffer);
             }
             else
@@ -75,58 +84,47 @@ public class GPUInstanceTest : MonoBehaviour
                 Debug.Log("射线检测到的点是" + hit.point);
             }
             targetPoint = hit.point;
-            SortByDistance(targetPoint);
+            var random = UnityEngine.Random.Range(0, ShapeMeshs.Count);
+            curVertics = ShapeMeshs[random].vertices;
         }
-        if (targetPoint != Vector3.zero){
-
+        if (targetPoint != Vector3.zero)
+        {
             for (int i = 0; i < matrices.Length; i++)
             {
-                if (i >= changeIndex) {
-                    var position = new Vector3(matrices[i][0, 3], matrices[i][1, 3], matrices[i][2, 3]);
-                    movePoint = Vector3.Lerp(position, targetPoint, 0.1f);
-                    Vector3 range = CalualteSphere(i, 1023, 2, movePoint);// Random.insideUnitSphere
-                    matrices[i].SetTRS(range, Quaternion.identity, Vector3.one);
-                }
+                var random = i;// GetRandomNumber(matrices);
+                var position = new Vector3(matrices[random][0, 3], matrices[random][1, 3], matrices[random][2, 3]);
+                movePoint = Vector3.Lerp(position, targetPoint, 0.1f);
+                Vector3 range = CalualteSphere(random, objCount, 2, movePoint);// Random.insideUnitSphere
+                matrices[random].SetTRS(range, Quaternion.identity, Vector3.one);
             }
-            changeIndex++;
         }
         if (!option)
         {
-            Graphics.DrawMeshInstanced(instanceMesh, 0, instanceMat, matrices, 1023, block, UnityEngine.Rendering.ShadowCastingMode.Off, false);
+            Graphics.DrawMeshInstanced(instanceMesh, 0, instanceMat, matrices, objCount, block, UnityEngine.Rendering.ShadowCastingMode.Off, false);
         }
     }
-    private int changeIndex = 0;
 
-    Vector3 CalualteSphere(int index, int count, int radius,Vector3 offset)
+    public int scale = 1;
+    Vector3 CalualteSphere(int index, int count, int radius, Vector3 offset)
     {
-        float inc = Mathf.PI * (3.0f - Mathf.Sqrt(5.0f));
-        float off = 2.0f / count;
-        float y = (float)index * off - 1.0f + (off / 2.0f);
-        float r = Mathf.Sqrt(1.0f - y * y);
-        float phi = index * inc;
-        Vector3 pos = new Vector3(Mathf.Cos(phi) * r * radius + offset.x, y * radius+offset.y, Mathf.Sin(phi) * r * radius + offset.z);
-        return pos;
-    }
+        //球体分布
+        //float inc = Mathf.PI * (3.0f - Mathf.Sqrt(5.0f));
+        //float off = 2.0f / count;
+        //float y = (float)index * off - 1.0f + (off / 2.0f);
+        //float r = Mathf.Sqrt(1.0f - y * y);
+        //float phi = index * inc;
+        //Vector3 pos = new Vector3(Mathf.Cos(phi) * r * radius + offset.x, y * radius + offset.y, Mathf.Sin(phi) * r * radius + offset.z);
+        //return pos;
 
-    void SortByDistance(Vector3 targetPoint)
-    {
-        //Matrix4x4 temp = new Matrix4x4();
-        for (int i = 0; i < matrices.Length -1 ; i++)
+        if ( index < curVertics.Length)
         {
-            for (int j = i+1; j < matrices.Length; j++)
-            {
-                var positioni = new Vector3(matrices[i][0, 3], matrices[i][1, 3], matrices[i][2, 3]);
-                var positionj = new Vector3(matrices[j][0, 3], matrices[j][1, 3], matrices[j][2, 3]);
-                if (Vector3.Distance(positioni, targetPoint) > Vector3.Distance(positionj, targetPoint))
-                {
-                    Matrix4x4 temp = new Matrix4x4();
-                    //交换
-                    temp = matrices[i];
-                    matrices[i] = matrices[j];
-                    matrices[j] = temp;
-                }
-            }
-        
+            Vector3 result = new Vector3(curVertics[index].x * scale + offset.x,
+               curVertics[index].y * scale + offset.y,
+                curVertics[index].z * scale + offset.z);
+            return result;
         }
+        return Vector3.zero;
     }
+
+
 }

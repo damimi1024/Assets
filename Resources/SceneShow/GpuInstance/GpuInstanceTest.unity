@@ -226,7 +226,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceMat: {fileID: 2100000, guid: d1a48de87f44763408d4b1137347dfe9, type: 2}
   instanceMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  Range: 4
+  Range: 5
+  objCount: 1023
+  ShapeMeshs:
+  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 4300000, guid: 8b14faada3f60a54daf7c8e70e0ac158, type: 3}
+  - {fileID: 4300000, guid: a149a38e9d0f0c341aa4177920648650, type: 3}
+  - {fileID: 4300030, guid: 27cd3ffabf618924f9c9eeefb09b60e0, type: 3}
+  - {fileID: -760559776020263515, guid: 926d57d0edc3c2e49b320817632a1334, type: 3}
+  scale: 2
 --- !u!1 &1925892652
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925892652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.8621645, y: 11.300638, z: -59.3}
+  m_LocalPosition: {x: 0, y: 0, z: -59.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
