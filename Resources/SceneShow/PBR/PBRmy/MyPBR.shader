@@ -1,21 +1,19 @@
-﻿// Upgrade NOTE: replaced 'UNITY_PASS_TEXCUBE(unity_SpecCube1)' with 'UNITY_PASS_TEXCUBE_SAMPLER(unity_SpecCube1,unity_SpecCube0)'
-
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-Shader "Scarecrow/MyPBR"
+﻿
+Shader "Yang/MyPBR"
 {
 	Properties
 	{
-		_Color("Color",color) = (1,1,1,1)	//颜色
-		_MainTex("Albedo",2D) = "white"{}	//反照率
-		_MetallicGlossMap("Metallic",2D) = "white"{} //金属图，r通道存储金属度，a通道存储光滑度
-		_BumpMap("Normal Map",2D) = "bump"{}//法线贴图
-		_OcclusionMap("Occlusion",2D) = "white"{}//环境光遮挡纹理
+		_Color("Color",color) = (1,1,1,1)					 //颜色
+		_MainTex("Albedo",2D) = "white"{}					 //贴图
+		_MetallicMap("Metallic",2D) = "white"{} 			//金属图，r通道存储金属度
+		_RoughnessMap("Roughness",2D) = "white"{} 			//粗糙度图，r通道存储光滑度
+		_BumpMap("Normal Map",2D) = "bump"{}				 //法线贴图
+		_OcclusionMap("Occlusion",2D) = "white"{}			 //环境光遮挡纹理
 		_MetallicStrength("MetallicStrength",Range(0,1)) = 1 //金属强度
-		_GlossStrength("Smoothness",Range(0,1)) = 0.5 //光滑强度
-		_BumpScale("Normal Scale",float) = 1 //法线影响大小
-		_EmissionColor("Color",color) = (0,0,0) //自发光颜色
-		_EmissionMap("Emission Map",2D) = "white"{}//自发光贴图
+		_GlossStrength("Smoothness",Range(0,1)) = 0.5		 //光滑强度
+		_BumpScale("Normal Scale",float) = 1				 //法线影响大小
+		_EmissionColor("Color",color) = (0,0,0)				 //自发光颜色
+		_EmissionMap("Emission Map",2D) = "white"{}			 //自发光贴图
 	}
 	CGINCLUDE
 		//引入一些需要用到的.cginc文件
@@ -137,13 +135,13 @@ Shader "Scarecrow/MyPBR"
 			}
 			return specular * occlusion;
 		}
-		//计算Smith-Joint阴影遮掩函数，返回的是除以镜面反射项分母的可见性项V
+
+		//计算Smith-Schlick阴影遮掩函数，返回的是除以镜面反射项分母的可见性项V
 		inline half ComputeSmithJointGGXVisibilityTerm(half nl,half nv,half roughness)
 		{
 			half ag = roughness * roughness;
 			half lambdaV = nl * (nv * (1 - ag) + ag);
 			half lambdaL = nv * (nl * (1 - ag) + ag);
-			
 			return 0.5f/(lambdaV + lambdaL + 1e-5f);
 		}
 		//计算法线分布函数
@@ -197,7 +195,8 @@ Shader "Scarecrow/MyPBR"
 			half4 _Color;
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			sampler2D _MetallicGlossMap;
+			sampler2D _MetallicMap;
+			sampler2D _RoughnessMap;
 			sampler2D _BumpMap;
 			sampler2D _OcclusionMap;
 			half _MetallicStrength;
@@ -261,9 +260,10 @@ Shader "Scarecrow/MyPBR"
 				//数据准备
 				float3 worldPos = float3(i.TtoW0.w,i.TtoW1.w,i.TtoW2.w);//世界坐标
 				half3 albedo = tex2D(_MainTex,i.uv).rgb * _Color.rgb;//反照率
-				half2 metallicGloss = tex2D(_MetallicGlossMap,i.uv).ra;
-				half metallic = metallicGloss.x * _MetallicStrength;//金属度
-				half roughness = 1 - metallicGloss.y * _GlossStrength;//粗糙度
+				half metallic_ = tex2D(_MetallicMap,i.uv).r;
+				half roughness_ = tex2D(_RoughnessMap, i.uv).r;
+				half metallic = metallic_ * _MetallicStrength;//金属度
+				half roughness = 1- roughness_ * _GlossStrength;//粗糙度
 				half occlusion = tex2D(_OcclusionMap,i.uv).g;//环境光遮挡
 
 				//计算世界空间中的法线

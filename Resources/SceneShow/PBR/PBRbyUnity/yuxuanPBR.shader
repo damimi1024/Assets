@@ -81,7 +81,7 @@ Shader "yuxuan/PBR1"
             v2f vert(appdata_full v)
             {
                 v2f o;
-                UNITY_INITIALIZE_OUTPUT(v2f, o);                        //将o初始化。
+                //UNITY_INITIALIZE_OUTPUT(v2f, o);                        //将o初始化。
                 o.pos = UnityObjectToClipPos(v.vertex);                 //计算齐次裁剪空间下的坐标位置
                 o.uv.xy = TRANSFORM_TEX(v.texcoord, _MainTex);          //这里的uv只定义了两个分量。TranformTex方法加入了贴图的TillingOffset值。
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;    //世界空间坐标计算。
@@ -145,7 +145,8 @@ Shader "yuxuan/PBR1"
                 o.Occlusion = Occlusion;                            //赋予AO
 
                 // Setup lighting environment
-                UnityGI gi;                                          //声明变量 初始化全局光照，输入直射光参数。间接光参数置零待更新。
+                UnityGI gi ;                                          //声明变量 初始化全局光照，输入直射光参数。间接光参数置零待更新。
+                UNITY_INITIALIZE_OUTPUT(UnityGI,gi);                 //初始化里面的信息。避免有的时候报错干扰
                 gi.indirect.diffuse = 0;                             //indirect部分先给0参数，后面需要计算出来。这里只是示意
                 gi.indirect.specular = 0;
                 gi.light.color = _LightColor0.rgb;                   //unity内置的灯光颜色变量
