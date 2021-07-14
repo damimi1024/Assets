@@ -48,12 +48,12 @@ Shader "yuxuan/PBR1"
             float4 _MainTex_ST;
             sampler2D _MetallicTex;
             sampler2D _SmoothnessTex;
+            sampler2D _OcclussionTex;
+            sampler2D _Normal;
             fixed _Metallic;
             fixed _Glossiness;
-            sampler2D _OcclussionTex;
             fixed _AO;
             half3 _Emission;
-            sampler2D _Normal;
             //...
 
             struct v2f
@@ -80,44 +80,34 @@ Shader "yuxuan/PBR1"
             //这里没有写appdata结构体，直接采用内置的appdata_Full
             v2f vert(appdata_full v)
             {
-                v2f o;//定义返回v2f 结构体o
-                UNITY_INITIALIZE_OUTPUT(v2f, o);//将o初始化。
-                o.pos = UnityObjectToClipPos(v.vertex);//计算齐次裁剪空间下的坐标位置
-                //这里的uv只定义了两个分量。TranformTex方法加入了贴图的TillingOffset值。
-                o.uv.xy = TRANSFORM_TEX(v.texcoord, _MainTex);
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;//世界空间坐标计算。
+                v2f o;
+                UNITY_INITIALIZE_OUTPUT(v2f, o);                        //将o初始化。
+                o.pos = UnityObjectToClipPos(v.vertex);                 //计算齐次裁剪空间下的坐标位置
+                o.uv.xy = TRANSFORM_TEX(v.texcoord, _MainTex);          //这里的uv只定义了两个分量。TranformTex方法加入了贴图的TillingOffset值。
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;    //世界空间坐标计算。
                 float3 worldNormal = UnityObjectToWorldNormal(v.normal);//世界空间法线计算
-                half3 worldTangent = UnityObjectToWorldDir(v.tangent);//世界空间切线计算
-                //利用切线和法线的叉积来获得副切线，tangent.w分量确定副切线方向正负，unity_WorldTransformParams.w判定模型是否有变形翻转。
-                half3 worldBinormal = cross(worldNormal,worldTangent)*v.tangent.w *unity_WorldTransformParams.w;
-
-                //组合TBN矩阵，用于后续的切线空间法线计算。
-                o.tSpace0 = float3(worldTangent.x,worldBinormal.x,worldNormal.x);
+                half3 worldTangent = UnityObjectToWorldDir(v.tangent);  //世界空间切线计算
+                half3 worldBinormal = cross(worldNormal,worldTangent)*v.tangent.w *unity_WorldTransformParams.w; //利用切线和法线的叉积来获得副切线，tangent.w分量确定副切线方向正负，unity_WorldTransformParams.w判定模型是否有变形翻转。
+                o.tSpace0 = float3(worldTangent.x,worldBinormal.x,worldNormal.x); //组合TBN矩阵，用于后续的切线空间法线计算。
                 o.tSpace1 = float3(worldTangent.y,worldBinormal.y,worldNormal.y);
                 o.tSpace2 = float3(worldTangent.z,worldBinormal.z,worldNormal.z);
 
-                // SH/ambient和顶点光照写入o.sh里
-                #ifndef LIGHTMAP_ON
+                
+                #ifndef LIGHTMAP_ON                                                // SH/ambient和顶点光照写入o.sh里
                     #if UNITY_SHOULD_SAMPLE_SH && !UNITY_SAMPLE_FULL_SH_PER_PIXEL
                         o.sh = 0;
-                        // Approximated illumination from non-important point lights
-                        //如果有顶点光照的情况（超出系统限定的灯光数或者被设置为non-important灯光）
-                        #ifdef VERTEXLIGHT_ON
+                        #ifdef VERTEXLIGHT_ON                                      //如果有顶点光照的情况（超出系统限定的灯光数或者被设置为non-important灯光）
                             o.sh += Shade4PointLights(
                             unity_4LightPosX0, unity_4LightPosY0, unity_4LightPosZ0,
                             unity_LightColor[0].rgb, unity_LightColor[1].rgb, unity_LightColor[2].rgb, unity_LightColor[3].rgb,
                             unity_4LightAtten0, o.worldPos, worldNormal);
                         #endif
-                        //球谐光照计算（光照探针，超过顶点光照数量的球谐灯光）
-                        o.sh = ShadeSHPerVertex(worldNormal, o.sh);
+                        o.sh = ShadeSHPerVertex(worldNormal, o.sh);                 //球谐光照计算（光照探针，超过顶点光照数量的球谐灯光）
                     #endif
-                #endif // !LIGHTMAP_ON
+                #endif 
 
-                UNITY_TRANSFER_LIGHTING(o, v.texcoord1.xy); // pass shadow and, possibly, light cookie coordinates to pixel shader
-                //在appdata_full结构体里。v.texcoord1就是第二套UV，也就是光照贴图的UV。
-                //计算并传递阴影坐标
-
-                UNITY_TRANSFER_FOG(o, o.pos); // pass fog coordinates to pixel shader。计算传递雾效的坐标。
+                UNITY_TRANSFER_LIGHTING(o, v.texcoord1.xy);                         //在appdata_full结构体里。v.texcoord1就是第二套UV，也就是光照贴图的UV。计算并传递阴影坐标
+                UNITY_TRANSFER_FOG(o, o.pos);                                       // 计算传递雾效的坐标。
 
                 return o;
             }
@@ -142,10 +132,10 @@ Shader "yuxuan/PBR1"
                 //变量计算
                     float metallic = MetallicSampler.r*_Metallic;           //金属度
                     float smoothness = (1-SmoothnessSampler.r)*_Glossiness; //光滑度
+                    UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos)        //计算光照衰减和阴影
 
 
                 SurfaceOutputStandard o;                            //声明变量
-                UNITY_INITIALIZE_OUTPUT(SurfaceOutputStandard,o);   //初始化里面的信息。避免有的时候报错干扰
                 o.Albedo = AlbedoColorSampler.rgb;                  //颜色分量，a分量在后面
                 o.Emission = _Emission;                             //自发光
                 o.Metallic = metallic;                              //r通道乘以控制色并赋予金属度
@@ -154,21 +144,12 @@ Shader "yuxuan/PBR1"
                 o.Normal = worldNormal;                             //赋予法线
                 o.Occlusion = Occlusion;                            //赋予AO
 
-
-
-
-                // compute lighting & shadowing factor
-                //计算光照衰减和阴影
-                UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos)
-
-                //初始化全局光照，输入直射光参数。间接光参数置零待更新。
                 // Setup lighting environment
-                UnityGI gi;//声明变量
-                UNITY_INITIALIZE_OUTPUT(UnityGI, gi);//初始化归零
-                gi.indirect.diffuse = 0;//indirect部分先给0参数，后面需要计算出来。这里只是示意
+                UnityGI gi;                                          //声明变量 初始化全局光照，输入直射光参数。间接光参数置零待更新。
+                gi.indirect.diffuse = 0;                             //indirect部分先给0参数，后面需要计算出来。这里只是示意
                 gi.indirect.specular = 0;
-                gi.light.color = _LightColor0.rgb;//unity内置的灯光颜色变量
-                gi.light.dir = lightDir;//赋予之前计算的灯光方向。
+                gi.light.color = _LightColor0.rgb;                   //unity内置的灯光颜色变量
+                gi.light.dir = lightDir;                             //赋予之前计算的灯光方向。
                 
                 //初始化giInput并赋予已有的值。此参数为gi计算所需要的输入参数。
                 // Call GI (lightmaps/SH/reflections) lighting function
