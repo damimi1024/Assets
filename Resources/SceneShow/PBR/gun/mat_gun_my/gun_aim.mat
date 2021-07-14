@@ -62,7 +62,7 @@ Material:
     m_Floats:
     - _AO: 0.688
     - _BumpScale: 1
-    - _GlossStrength: 0.5
+    - _GlossStrength: 0.649
     - _Glossiness: 0.719
     - _Metallic: 1
     - _MetallicStrength: 1
