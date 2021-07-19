@@ -28,11 +28,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _ReflectStrength: 1.48
-    - _RefractIntensity: 0.41
+    - _ReflectStrength: 1.87
+    - _RefractIntensity: 0.38
     - _RimBias: 0.22
-    - _RimPower: 2.47
-    - _RimScale: 0.02
+    - _RimPower: 5.81
+    - _RimScale: 0.52
     m_Colors:
     - _Color0: {r: 2.84697, g: 4.822486, b: 6.8831816, a: 0}
     - _RimColor: {r: 2.719234, g: 2.719234, b: 2.719234, a: 0}

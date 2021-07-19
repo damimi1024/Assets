@@ -651,12 +651,17 @@ PrefabInstance:
     - target: {fileID: 3842315477674945875, guid: c5e51f3266977044f9606d26a594d787,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3842315477674945875, guid: c5e51f3266977044f9606d26a594d787,
+        type: 3}
+      propertyPath: antialiasingMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3842315477674945876, guid: c5e51f3266977044f9606d26a594d787,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4137671864826111213, guid: c5e51f3266977044f9606d26a594d787,
         type: 3}

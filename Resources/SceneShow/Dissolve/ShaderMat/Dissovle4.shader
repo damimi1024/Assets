@@ -15,7 +15,15 @@ Shader "Unlit/Dissovle4"
         _DissolveDistance("DissolveDis",Range(0,20))=14
         _DissolveDistanceFactor("DissolveDisFactor",Range(0,30))=1
     }
-    CGINCLUDE
+    
+    SubShader
+    {
+        Tags{ "RenderType" = "Opaque" }
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag   
     #include "Lighting.cginc"
     uniform fixed4 _Diffuse;
     uniform fixed4 _DissolveColorA;
@@ -86,15 +94,7 @@ Shader "Unlit/Dissovle4"
     }
 
     ENDCG
-    SubShader
-    {
-        Tags{ "RenderType" = "Opaque" }
-        Pass
-        {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag   
-            ENDCG
+
         }
     }
     FallBack "Diffuse"

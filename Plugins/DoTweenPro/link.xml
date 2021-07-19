@@ -1,0 +1,6 @@
+﻿<linker>
+	<assembly fullname="DemiLib" preserve="all"/>
+	<assembly fullname="DOTween" preserve="all"/>
+	<assembly fullname="DoTweenUtil.dll" preserve="all"/>
+	<assembly fullname="DOTweenPro" preserve="all"/>
+</linker>

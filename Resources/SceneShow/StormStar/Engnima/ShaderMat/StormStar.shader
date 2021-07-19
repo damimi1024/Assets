@@ -62,21 +62,20 @@
             };
 
             sampler2D _Normal;
-            sampler2D _FlowTex;
-            sampler2D _StarTex;
             float _NormalIntensity;
             float3 _RimColor;
             float _RimBias;
             float _RimScale;
             float _RimPower;
 
-            float _Rate;
+            sampler2D _FlowTex;
             float4 _FlowTillingSpeed;
             float _FlowStrength;
             float3 _FlowColor;
 
-            float4 _StarTillingOffset;
+            sampler2D _StarTex;
             sampler2D _StarFlowMap;
+            float4 _StarTillingOffset;
             float _StarFlowMapSpeed;
        
 
@@ -84,6 +83,7 @@
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.uv;
                 o.normalWorld = mul(float4(v.normal, 0.0), unity_WorldToObject).xyz;
                 o.tangentWorld  = mul(unity_ObjectToWorld, float4(v.tangent.xyz, 0.0)).xyz;
                 o.binormalWorld  = cross(o.normalWorld,o.tangentWorld) * v.tangent.w *unity_WorldTransformParams.w;
