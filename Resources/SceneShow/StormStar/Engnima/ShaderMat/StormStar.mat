@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: StormStar
+  m_Shader: {fileID: 4800000, guid: 15d4ba6d996ee074881d717dd062ad1c, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FlowTex:
+        m_Texture: {fileID: 2800000, guid: c1f24bc973f67f44c8a161a2e081ae8a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 5cf986e6e25588f4c978441075bf6a7f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _StarTex:
+        m_Texture: {fileID: 2800000, guid: b5b5e181578d8b8489222087e136407b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _FlowStrength: 5.33
+    - _NormalIntensity: 2.52
+    - _Rate: 1
+    - _RimBias: 4.73
+    - _RimPower: 3.62
+    - _RimScale: 5.73
+    m_Colors:
+    - _FlowColor: {r: 1, g: 0, b: 0.87610626, a: 1}
+    - _FlowSpeed: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _FlowTilling: {r: 2, g: 2, b: 0, a: 0}
+    - _FlowTillingSpeed: {r: 1, g: 1, b: 0, a: 0.3}
+    - _RimColor: {r: 0.010412962, g: 0.017411588, b: 0.05660379, a: 1}
+    - _StarTillingOffset: {r: 0.31, g: 0.19, b: 0.48, a: 0.3}
+    - _StarTillingSpeed: {r: 0.52, g: 1, b: 0, a: 0}

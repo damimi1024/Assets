@@ -31,8 +31,8 @@ Material:
     - _ReflectStrength: 1.48
     - _RefractIntensity: 0.41
     - _RimBias: 0.22
-    - _RimPower: 6.42
-    - _RimScale: 0.53
+    - _RimPower: 2.47
+    - _RimScale: 0.02
     m_Colors:
     - _Color0: {r: 2.84697, g: 4.822486, b: 6.8831816, a: 0}
     - _RimColor: {r: 2.719234, g: 2.719234, b: 2.719234, a: 0}

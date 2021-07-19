@@ -62,6 +62,7 @@ Material:
     m_Floats:
     - _AO: 0.688
     - _BumpScale: -0.01
+    - _FresenelStrength: 1
     - _GlossStrength: 0.75
     - _Glossiness: 0.719
     - _Metallic: 1

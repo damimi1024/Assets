@@ -8,6 +8,8 @@ public class DrawNormals : MonoBehaviour
 #if UNITY_EDITOR
     [SerializeField]
     private MeshFilter _meshFilter = null;
+    [SerializeField]
+    private SkinnedMeshRenderer _SkinmeshRender = null;
     //[SerializeField]
     //private bool _displayWireframe = false;
     [SerializeField]
@@ -67,14 +69,32 @@ public class DrawNormals : MonoBehaviour
 
     private void OnDrawNormals(bool isSelected)
     {
+        bool isSkin = false;
         if (_meshFilter == null)
         {
             _meshFilter = GetComponent<MeshFilter>();
-            if (_meshFilter == null)
+            _SkinmeshRender = GetComponent<SkinnedMeshRenderer>();
+            if (_SkinmeshRender != null) {
+                isSkin = true;
+            }
+            if (_meshFilter == null && _SkinmeshRender== null)
+            {
                 return;
+            }
         }
 
-        Mesh mesh = _meshFilter.sharedMesh;
+        Mesh mesh = null;
+        if (isSkin)
+        {
+            mesh = _SkinmeshRender.sharedMesh;
+        }
+        else {
+             mesh = _meshFilter.sharedMesh;
+            if (mesh == null)
+            {
+                mesh = _SkinmeshRender.sharedMesh;
+            }
+        }
 
         //Draw Vertex Normals
 

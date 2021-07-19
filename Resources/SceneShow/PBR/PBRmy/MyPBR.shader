@@ -14,6 +14,9 @@ Shader "Yang/MyPBR"
 		_BumpScale("Normal Scale",float) = 1				 //法线影响大小
 		_EmissionColor("Color",color) = (0,0,0)				 //自发光颜色
 		_EmissionMap("Emission Map",2D) = "white"{}			 //自发光贴图
+
+
+		_FresenelStrength("FresenelStrength",Float) = 1		 //边缘光强度
 	}
 	CGINCLUDE
 		//引入一些需要用到的.cginc文件
@@ -165,9 +168,9 @@ Shader "Yang/MyPBR"
 			return baseColor * UNITY_INV_PI * (1 + (Fd90 - 1) * pow(1-nl,5)) * (1 + (Fd90 - 1) * pow(1-nv,5));
 		}
 		//计算间接光镜面反射菲涅尔项
-		inline half3 ComputeFresnelLerp(half3 c0,half3 c1,half cosA)
+		inline half3 ComputeFresnelLerp(half3 c0,half3 c1,half cosA,float _FresenelStrength)
 		{
-			half t = pow(1 - cosA,5);
+			half t = pow(1 - cosA,5)*_FresenelStrength;
 			return lerp(c0,c1,t);
 		}
 
@@ -204,6 +207,8 @@ Shader "Yang/MyPBR"
 			float _BumpScale;
 			half4 _EmissionColor;
 			sampler2D _EmissionMap;
+
+			float _FresenelStrength;
 
 			struct a2v
 			{
@@ -303,7 +308,7 @@ Shader "Yang/MyPBR"
 				//计算掠射角时反射率
 				half grazingTerm = saturate((1 - roughness) + (1-oneMinusReflectivity));
 				//计算间接光镜面反射
-				indirectSpecular *= ComputeFresnelLerp(specColor,grazingTerm,nv);
+				indirectSpecular *= ComputeFresnelLerp(specColor,grazingTerm,nv,_FresenelStrength);
 				//计算间接光漫反射
 				indirectDiffuse *= diffColor;
 
