@@ -31,22 +31,27 @@ Material:
         m_Texture: {fileID: 2800000, guid: 5cf986e6e25588f4c978441075bf6a7f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _StarFlowMap:
+        m_Texture: {fileID: 2800000, guid: af6ad7d9650b1b641a7b1cb8a51a7e72, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _StarTex:
-        m_Texture: {fileID: 2800000, guid: b5b5e181578d8b8489222087e136407b, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb6190955fe618a4096cbf09747eb527, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _FlowStrength: 5.33
-    - _NormalIntensity: 2.52
+    - _FlowStrength: 7.14
+    - _NormalIntensity: 2.74
     - _Rate: 1
-    - _RimBias: 4.73
-    - _RimPower: 3.62
-    - _RimScale: 5.73
+    - _RimBias: 0
+    - _RimPower: 3.58
+    - _RimScale: 3.42
+    - _StarFlowMapSpeed: 0.13
     m_Colors:
-    - _FlowColor: {r: 1, g: 0, b: 0.87610626, a: 1}
+    - _FlowColor: {r: 0.06486455, g: 0.04438101, b: 0.047794934, a: 1}
     - _FlowSpeed: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _FlowTilling: {r: 2, g: 2, b: 0, a: 0}
-    - _FlowTillingSpeed: {r: 1, g: 1, b: 0, a: 0.3}
-    - _RimColor: {r: 0.010412962, g: 0.017411588, b: 0.05660379, a: 1}
-    - _StarTillingOffset: {r: 0.31, g: 0.19, b: 0.48, a: 0.3}
+    - _FlowTillingSpeed: {r: 2.97, g: 0.68, b: 0, a: 0.2}
+    - _RimColor: {r: 0.05462278, g: 0.02731139, b: 0.7920303, a: 1}
+    - _StarTillingOffset: {r: 0.5, g: 0.5, b: 0.49, a: 0.22}
     - _StarTillingSpeed: {r: 0.52, g: 1, b: 0, a: 0}
