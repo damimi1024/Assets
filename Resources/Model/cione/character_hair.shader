@@ -153,7 +153,7 @@
                 float3 binormal_dir1 = normalize(binormal_dir + aniso_offset1);
                 float BdotH1 = dot(half_dir,binormal_dir1)/_Shininess1;
                 float3 spec_term1 = exp(-(TdotH *TdotH + BdotH1 * BdotH1)/(1 + NdotH));
-                float3 final_spec1 = spec_term1 * aniso_atten * atten * spec_color1 *_LightColor0.xyz;
+                float3 final_spec1 = spec_term1 * aniso_atten  * spec_color1 *_LightColor0.xyz;
 
                 // half smoothness = 1-roughness;
                 // half shininess = lerp(1,_Shininess1,smoothness);
